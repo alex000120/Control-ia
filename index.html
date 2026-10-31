@@ -1,1 +1,64 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Reproductor Gestual | CEJA LIDORO QUINTEROS</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- MediaPipe Tasks Vision -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.mjs" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Video principal (ocupa toda la pantalla) -->
+  <video id="mainVideo" class="main-video" playsinline></video>
+
+  <!-- Canvas para dibujar las manos y el cursor sobre el video -->
+  <canvas id="overlayCanvas" class="overlay-canvas"></canvas>
+
+  <!-- Mini ventana de la cámara (esquina inferior derecha) -->
+  <div id="cameraPreview" class="camera-preview">
+    <video id="cameraVideo" autoplay muted playsinline></video>
+    <canvas id="cameraCanvas" class="camera-canvas"></canvas>
+    <div id="gestureStatus" class="gesture-status">Esperando manos...</div>
+  </div>
+
+  <!-- Indicador del gesto detectado -->
+  <div id="gestureHint" class="gesture-hint"></div>
+
+  <!-- Menú de configuración (oculto por defecto) -->
+  <div id="configMenu" class="config-menu hidden">
+    <h2>⚙️ Configuración</h2>
+    <label>Resolución de cámara:
+      <select id="camRes">
+        <option value="640x480">640x480 (Rápido)</option>
+        <option value="1280x720" selected>1280x720 (Equilibrado)</option>
+        <option value="1920x1080">1920x1080 (Alta calidad)</option>
+      </select>
+    </label>
+    <label>FPS de detección:
+      <select id="detectFps">
+        <option value="15">15 FPS (Bajo consumo)</option>
+        <option value="30" selected>30 FPS (Recomendado)</option>
+        <option value="60">60 FPS (Alto rendimiento)</option>
+      </select>
+    </label>
+    <label>Sensibilidad de gestos:
+      <input type="range" id="sensitivity" min="0.5" max="2" step="0.1" value="1" />
+    </label>
+    <label>
+      <input type="checkbox" id="showSkeleton" checked /> Mostrar esqueleto de manos
+    </label>
+    <label>
+      <input type="checkbox" id="showCursor" checked /> Mostrar cursor virtual
+    </label>
+    <button id="closeConfig">Cerrar</button>
+  </div>
+
+  <!-- Botón flotante para abrir el menú (también se puede abrir con gesto) -->
+  <button id="openConfigBtn" class="floating-btn" title="Configuración">⚙️</button>
+
+  <!-- Script principal -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
